@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>HEETETRIS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="main-cnt" >
+        <canvas id="main-board" class="main-board"></canvas>
+      </div>
+      <div class="sub-cnt">
+        <canvas id="sub-board" class="sub-board"></canvas>
+        <p>레벨: <span id="level"></span></p>
+        <p>점수: <span id="score"></span></p>
+        <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
+        <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
+        <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
+      </div>
+    </div>
+  </body>
+  
+  <script src="./js/board.js"></script>
+  <script src="./js/piece.js"></script>
+  <script src="./js/rules.js"></script>
+</html>

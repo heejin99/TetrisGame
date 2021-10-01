@@ -1,24 +1,27 @@
 
-const mainCanvas = document.getElementById('main-canvas')
-const mainCtx = document.getElementById('2d')
+function getEmptyBoard() {
+    return Array.from(
+        {length: MAIN_ROWS}, () => Array(MAIN_COLS).fill(0)
+    )
+}
 
-const subCanvas = document.getElementById('sub-canvas')
-const subCtx = document.getElementById('2d')
+function stack(block, matrix) {
+    block.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value > 0) {
+                matrix[y+block.y][x+block.x] = block.shape[y][x]
+            }
+        })
+    })
+}
 
-mainCtx.fillStyle = "gray"
-
-const borderWidth = 5
-const blockSize = 30
-
-function createBorder() {
-    for (let x = 0; x < 12; x++) {
-        for (let y = 0; y < 24; y++) {
-            mainCtx.fillRect(
-                borderWidth * x + blockSize * x,
-                borderWidth * y + blockSize * y,
-                blockSize, blockSize
-            )
-        }
-    }
-
+function drawBoard(matrix, ctx) {
+    matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value > 0) {
+                ctx.fillStyle = 'white'
+                ctx.fillRect(x,y,1,1)
+            }
+        })
+    })
 }

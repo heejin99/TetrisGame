@@ -1,9 +1,12 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./css/index.css">
-    <title>HEETETRIS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HEETETRIS</title>
+    <link rel="stylesheet" href="client/css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
   </head>
   <body>
     <div class="wrap">
@@ -19,9 +22,9 @@
         <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
       </div>
     </div>
+    <script src="client/js/rules.js"></script>
+    <script src="client/js/board.js"></script>
+    <script src="client/js/piece.js"></script>
+    <script src="client/js/main.js"></script>
   </body>
-  
-  <script src="./js/board.js"></script>
-  <script src="./js/piece.js"></script>
-  <script src="./js/rules.js"></script>
 </html>

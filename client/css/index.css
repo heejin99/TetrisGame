@@ -20,7 +20,7 @@ html {
 
 .sub-cnt {
     padding: 1vw;
-    font-size: 2rem;
+    font-size: 1.3rem;
 }
 
 .main-board {
@@ -29,7 +29,7 @@ html {
     border: 2px solid white;
 }
 
-.side-board{
+.sub-board{
     margin: 6% 0 0 0;
     width: 200px;
     height: 200px;

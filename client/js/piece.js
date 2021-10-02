@@ -60,7 +60,7 @@ function valid(block, matrix) {
             let y = block.y+dy
             if (value > 0) {
                 if (x < 0 || y < 0 || x >= MAIN_COLS|| y >= MAIN_ROWS
-                    ) { // || matrix[y][x] > 0
+                    || matrix[y][x] > 0) { // 
                     isValid = false
                     return true
                 }

@@ -20,12 +20,12 @@ function createBlock() {
 }
 
 function draw(block, ctx) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     // ctx.fillStyle = randomNextColor()
     block.shape.forEach((row, y) => {
         row.forEach((value, x) => {
             if (value > 0) {
-                ctx.fillStyle = 'white'
+                ctx.fillStyle = COLORS[value-1]
                 ctx.fillRect(block.x + x, block.y + y, 1, 1)
             }
         })

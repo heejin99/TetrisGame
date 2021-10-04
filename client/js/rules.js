@@ -22,13 +22,13 @@ subCtx.scale(BLOCK_SIZE, BLOCK_SIZE)
 
 
 const COLORS = [
-    'red',
-    'orange',
-    'yellow',
-    'green',
-    'blue',
-    'purple',
-    'cyan'
+    '#264653',
+    '#2a9d8f',
+    '#e9c46a',
+    '#f4a261',
+    '#e76f51',
+    '#e63946',
+    '#a8dadc'
 ]
 
 const SHAPES = [

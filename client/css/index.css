@@ -5,7 +5,7 @@
 }
 
 html {
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .wrap {
@@ -36,11 +36,15 @@ html {
     border: 2px solid white;
 }
 
+.highScoreTitle {
+    color: #ffa3a3;
+}
 .start {
     background-color:cornflowerblue;
     border: 2px solid #1d42e6;
     color: #d7e5ff;
     text-align: center;
+    font-size: 30px;
 }
 
 .pause {
@@ -48,6 +52,7 @@ html {
     border: 2px solid #d36a15;
     color: #4e3513;
     text-align: center;
+    font-size: 30px;
 }
 
 .quit {
@@ -55,4 +60,223 @@ html {
     border: 2px solid #408d0d;
     color: #194d09;
     text-align: center;
+    font-size: 30px;
+}
+
+.bottomCnt {
+    display: grid;
+    width: 97vw;
+    height: 27vh;
+    grid-template-rows: 2fr 1fr;
+    max-width: 660px;
+}
+
+.keypad {
+    display: grid;
+    margin-left: 25%;
+    margin-top: -15%;
+    grid-template-columns: 2fr 1fr;
+}
+
+.arrowKeyCnt {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.arrowKeyUp {
+    /* display: grid; */
+    /* grid-template-columns: 2fr 2fr; */
+
+}
+
+.arrowKeyDown {
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr; */
+
+}
+
+.arrow {
+    border: 2px solid #1f0d83;
+    background-color: #ddd7ff;
+    color: #1f0d83;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 6vh;
+    width: 15vh;
+    font-size: 20px;
+}
+
+.rotation {
+    border: 2px solid #1f0d83;
+    background-color: #ddd7ff;
+    color: #1f0d83;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 9vh;
+    width: 15vh;
+    font-size: 20px;
+}
+
+.down {
+    border: 2px solid #1f0d83;
+    background-color: #ddd7ff;
+    color: #1f0d83;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    width: 15vh;
+    height: 9vh;
+}
+
+.space {
+    border: 2px solid #1f0d83;
+    background-color: #ddd7ff;
+    color: #1f0d83;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    height: 9vh;
+    font-size: 20px;
+    width: 30.5vh;
+}
+
+@media ( max-width: 480px) {
+        
+    html {
+        font-size: 14px;
+    }
+
+    .wrap {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        width: fit-content;
+    }
+
+    .main-cnt {
+        padding: 1px;
+    }
+
+    .sub-cnt {
+        padding: 1vw;
+        font-size: 1.3rem;
+    }
+
+    .main-board {
+        width: 250px;
+        height: 500px;
+        border: 2px solid white;
+    }
+
+    .sub-board{
+        margin: 6% 0 0 0;
+        width: 100px;
+        height: 100px;
+        border: 2px solid white;
+    }
+
+    .highScoreTitle {
+        color: #ffa3a3;
+    }
+    .start {
+        background-color:cornflowerblue;
+        border: 2px solid #1d42e6;
+        color: #d7e5ff;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .pause {
+        background-color:burlywood;
+        border: 2px solid #d36a15;
+        color: #4e3513;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .quit {
+        background-color:#33ce24;
+        border: 2px solid #408d0d;
+        color: #194d09;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .bottomCnt {
+        display: grid;
+        width: 97vw;
+        height: 27vh;
+        grid-template-rows: 2fr 1fr;
+        max-width: 660px;
+    }
+
+    .keypad {
+        display: grid;
+        margin-top: 5%;
+        margin-left: 0%;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .arrowKeyCnt {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .arrowKeyUp {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+
+    }
+
+    .arrowKeyDown {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .arrow {
+        border: 2px solid #1f0d83;
+        background-color: #ddd7ff;
+        color: #1f0d83;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        height: 6vh;
+        width: 20vh;
+    }
+
+    .rotation {
+        border: 2px solid #1f0d83;
+        background-color: #ddd7ff;
+        color: #1f0d83;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        height: 7vh;
+        width: 20vh;
+    }
+
+    .down {
+        border: 2px solid #1f0d83;
+        background-color: #ddd7ff;
+        color: #1f0d83;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        height: 7vh;
+        width: 20vh;
+    }
+
+    .space {
+        border: 2px solid #1f0d83;
+        background-color: #ddd7ff;
+        color: #1f0d83;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        height: 7vh;
+        width: 40vh;
+    }
 }

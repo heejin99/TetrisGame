@@ -20,12 +20,34 @@ let levelElem = document.querySelector('#level')
 let levelUpElem = document.querySelector('#levelUp')
 let levelId = null
 
+let lines = 0
+let linesElem = document.querySelector('#lines')
+let removeLinesElem = document.querySelector('#removeLines')
+let removeLinesId = null
+
+let highScoreElem = document.querySelector('#highScore')
+let comboCnt = 0
+
 function reset() {
     mainMatrx = getEmptyBoard(MAIN_ROWS, MAIN_COLS)
     time = 0
     timeRemove = 0
     mainBl = null
     subBl = null
+}
+
+function addLines(line) {
+    lines += line
+    linesElem.textContent = lines
+    if(lines < 0) {
+        removeLinesElem.textContent = line
+    }
+    if (removeLinesId) {
+        clearTimeout(removeLinesId)
+    }
+    removeLinesId = setTimeout(() => {
+        removeLinesElem.textContent = ""
+    }, 1000)
 }
 
 function addScore(score) {
@@ -64,6 +86,7 @@ function keyHandler(event) {
             break
         case KEY.DOWN:
             validMove(mainBl, mainMatrx, 0, 1)
+            globalAddscore += 1
             break
         case KEY.LEFT:
             validMove(mainBl,mainMatrx, -1, 0)
@@ -73,7 +96,7 @@ function keyHandler(event) {
             break
         case KEY.SPACE:
             while(validMove(mainBl, mainMatrx, 0, 1)) {
-                // globalAddscore += 10*currentLevel 
+                globalAddscore += 8 
             };
             nextStep()
             time = 0  
@@ -95,10 +118,12 @@ function setBlock() {
 function start() {
     reset()
     gameStatus = 'S'
+    window.addEventListener('click', event => {})
     window.addEventListener('keydown', keyHandler)
     setBlock()
     repeatMotion(0)
     resetScore()
+    highScoreElem.textContent = localStorage.getItem('highScore')||0
 }
 
 function pause() {
@@ -116,6 +141,27 @@ function pause() {
         gameStatus = 'S'
         repeatMotion()
     }
+}
+
+function quit() {
+    
+    mainCtx.fillStyle = '#f0b71b'
+    mainCtx.fillRect(1,3,8,1.8)
+    mainCtx.font = '1px NeoDungGeunMo'
+    mainCtx.fillStyle = '#ffffff'
+    mainCtx.fillText('게임 오버', 2.8, 4.2)
+
+    let highScore = Number(highScoreElem.textContent)
+    if(totalScore > highScore) {
+        localStorage.setItem('highScore', totalScore)
+        highScoreElem.textContent = totalScore
+        mainCtx.fillText('기록 갱신', 2.8, 4.2)
+    } else {
+        mainCtx.fillText('게임 오버', 2.8, 4.2)
+    }
+
+
+    gameStatus = 'Q'
 }
 
 function initRemoveLines() {
@@ -167,27 +213,24 @@ function repeatMotion(timeStamp) {
             repeatM(timeStamp, 500)
             break
     }
-    if(totalScore >= 1000) {
-        addLevel(1)
-    } else if(totalScore >= 2000) {
-        addLevel(1)
-    } else if(totalScore >= 3000) {
-        addLevel(1)
-    } else if (totalScore >= 4000) {
-        addLevel(1)
-    }
     if (fillLines.length > 0) {
         if (timeRemove == 0) {
             timeRemove = timeStamp
         }
         if (timeStamp - timeRemove > 100) {
+            comboCnt++
+            globalAddscore += 30*fillLines.length*currentLevel*comboCnt
             removeLines(mainMatrx, fillLines)
             globalAddscore += 50*fillLines.length*currentLevel
             addScore(globalAddscore)
             console.log(totalScore)
             
             globalAddscore = 0
-
+            addLines(fillLines.length)
+            if (lines >= 10) {
+                addLevel(1)
+                // addLines()
+            }
             initRemoveLines()
             setBlock()
         }
@@ -200,10 +243,14 @@ function repeatMotion(timeStamp) {
     }
 }
 function rebuild() {
+    resize()
+    drawLatt(mainMatrx, mainCtx)
+    drawLatt((new Array(4)).fill((new Array(4)).fill(0)), subCtx)
     draw(mainBl, mainCtx)
     draw(subBl, subCtx)
     drawBoard(mainMatrx, mainCtx)
     drawRemoveLine(mainCtx, MAIN_COLS, fillLines)
+    drawcombo(mainCtx, comboCnt, COLORS)
 }
 
 
@@ -212,6 +259,7 @@ function nextStep() {
     fillLines = checkFilledLines(mainMatrx)
 
     if(fillLines.length == 0) {
+        comboCnt = 0
         addScore(globalAddscore)
         globalAddscore = 0
         mainMatrx[0].some((value, x) => {
@@ -226,7 +274,7 @@ function nextStep() {
         if (valid(cloneBl, mainMatrx)) {
             setBlock()
         } else {
-            gameStats = 'Q'
+            gameStatus = 'Q'
         }
     }
     rebuild()
@@ -243,4 +291,42 @@ function resetScore() {
     currentLevel = 1
     levelElem.textContent = "1"
     levelUpElem.textContent = ""
+
+    lines = 0
+    linesElem.textContent = "0"
+    removeLinesElem.textContent =""
+}
+
+function pressKey(keyCode) {
+    if(gameStatus==="S" || gameStatus ==='P') {
+        const obj = {
+            keyCode: keyCode
+        }
+        keyHandler(obj)
+    }
+}
+
+(function() {
+    main();
+})
+
+function main() {
+    resize()
+    window.addEventListener('resize', resize)
+}
+function resize() {
+    const INNERWIDTH = (windwow.innerWidth > 660) ? 660: window.innerWidth
+    const MAINWIDTH = Math.floor(INNERWIDTH*0.6)
+    const BLOCKSIZE = Math.floor(MAINWIDTH/MAIN_COLS)
+
+    mainCtx.canvas.width=BLOCKSIZE*MAIN_COLS
+    mainCtx.canvas.height=BLOCKSIZE*MAIN_ROWS
+    mainCtx.scale(BLOCKSIZE, BLOCKSIZE)
+    
+    subCTx.canvas.width=BLOCKSIZE*SUB_COLS
+    subCTx.canvas.height=BLOCKSIZE*SUB_ROWS
+    subCTx.scale(BLOCKSIZE, BLOCKSIZE)
+
+    const FONT = INNERWIDTH/350
+    document.querySelector('#sub-cnt').fillStyle.fontSize = FONT+'rem'
 }

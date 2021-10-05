@@ -32,7 +32,8 @@ app.use(session({
 }))
 
 app.use('/api', require('./routes/tetris'))
-
+app.use('/api', require('./routes/login'))
+app.use('/api/signup', require('./routes/signup'))
 app.listen(port, () => {
     console.log(`Server Listening on ${port}`)
 })

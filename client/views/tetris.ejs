@@ -9,47 +9,48 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
   </head>
   <body>
-    <div class="wrap">
-      <div class="main-cnt" >
-        <canvas id="main-board" class="main-board"></canvas>
+    <form method="post" action="/api/">
+      <div class="wrap">
+        <div class="main-cnt" >
+          <canvas id="main-board" class="main-board"></canvas>
+        </div>
+        <div class="sub-cnt">
+          <canvas id="sub-board" class="sub-board"></canvas>
+          <p>레벨: <span id="level"></span><span id="levelUp" class="levelUp"></span></p>
+          <p>점수: <span id="score"></span><span id="addScore" class="addScore"></span></p>
+          <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
+          <p>
+            <span class="highScoreTitle">최고점수</span><br>
+            <span id="highScore">0</span>
+          </p>
+          <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
+          <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
+          <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
+        </div>
       </div>
-      <div class="sub-cnt">
-        <canvas id="sub-board" class="sub-board"></canvas>
-        <p>레벨: <span id="level"></span><span id="levelUp" class="levelUp"></span></p>
-        <p>점수: <span id="score"></span><span id="addScore" class="addScore"></span></p>
-        <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
-        <p>
-          <span class="highScoreTitle">최고점수</span><br>
-          <span id="highScore">0<%highScore%></span>
-        </p>
-        <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
-        <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
-        <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
-      </div>
-    </div>
-    <div id="bottom-cnt" class="bottom-cnt">
-      <div id="keypad" class="keypad">
-        <div class="arrowKeyCnt">
-          <div class="arrowKeyUp">
-            <button id="upKey" class="rotation" onclick="pressKey(38)">블럭 돌리기</button>
-            <button id="downKey" class="down" onclick="pressKey(40)">내리기</button>
+      <div id="bottom-cnt" class="bottom-cnt">
+        <div id="keypad" class="keypad">
+          <div class="arrowKeyCnt">
+            <div class="arrowKeyUp">
+              <button id="upKey" class="rotation" onclick="pressKey(38)">블럭 돌리기</button>
+              <button id="downKey" class="down" onclick="pressKey(40)">내리기</button>
+            </div>
+            <br>
+            <div class="arrowKeyDown">
+              <button id="left" class="arrow" onclick="pressKey(37)">←</button>
+              <button id="right" class="arrow" onclick="pressKey(39)">→</button>
+            </div>
           </div>
           <br>
-          <div class="arrowKeyDown">
-            <!-- <buttion id="left" class="arrow" onclick="pressKey(37)">←</buttion> -->
-            <button id="left" class="arrow" onclick="pressKey(37)">←</button>
-            <button id="right" class="arrow" onclick="pressKey(39)">→</button>
-
-            <!-- <buttion id="right" class="arrow" onclick="pressKey(39)">→</buttion> -->
-          </div>
+          <button id="space" class="space" onclick="pressKey(32)">드랍</button>
         </div>
-        <br>
-        <button id="space" class="space" onclick="pressKey(32)">드랍</button>
       </div>
-    </div>
-    <script src="client/js/rules.js"></script>
-    <script src="client/js/board.js"></script>
-    <script src="client/js/piece.js"></script>
-    <script src="client/js/main.js"></script>
+      
+    </form>
+    
+    <script src="/client/js/rules.js"></script>
+    <script src="/client/js/board.js"></script>
+    <script src="/client/js/piece.js"></script>
+    <script src="/client/js/main.js"></script>
   </body>
 </html>

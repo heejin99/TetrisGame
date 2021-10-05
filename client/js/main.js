@@ -315,7 +315,7 @@ function main() {
     window.addEventListener('resize', resize)
 }
 function resize() {
-    const INNERWIDTH = (windwow.innerWidth > 660) ? 660: window.innerWidth
+    const INNERWIDTH = (window.innerWidth > 660) ? 660: window.innerWidth
     const MAINWIDTH = Math.floor(INNERWIDTH*0.6)
     const BLOCKSIZE = Math.floor(MAINWIDTH/MAIN_COLS)
 
@@ -323,10 +323,10 @@ function resize() {
     mainCtx.canvas.height=BLOCKSIZE*MAIN_ROWS
     mainCtx.scale(BLOCKSIZE, BLOCKSIZE)
     
-    subCTx.canvas.width=BLOCKSIZE*SUB_COLS
-    subCTx.canvas.height=BLOCKSIZE*SUB_ROWS
-    subCTx.scale(BLOCKSIZE, BLOCKSIZE)
+    subCtx.canvas.width=BLOCKSIZE*SUB_COLS
+    subCtx.canvas.height=BLOCKSIZE*SUB_ROWS
+    subCtx.scale(BLOCKSIZE, BLOCKSIZE)
 
-    const FONT = INNERWIDTH/350
-    document.querySelector('#sub-cnt').fillStyle.fontSize = FONT+'rem'
+    // const FONT = INNERWIDTH/350
+    // document.querySelector('#sub-cnt').style.fontSize = FONT+'rem'
 }

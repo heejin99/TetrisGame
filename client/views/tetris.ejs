@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
   </head>
   <body>
-    <form method="post" action="/api/">
+    <!-- <form method="post" action="/api/"> -->
       <div class="wrap">
         <div class="main-cnt" >
           <canvas id="main-board" class="main-board"></canvas>
@@ -21,7 +21,7 @@
           <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
           <p>
             <span class="highScoreTitle">최고점수</span><br>
-            <span id="highScore">0</span>
+            <span id="highScore"><%=highscore%></span>
           </p>
           <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
           <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
@@ -46,7 +46,7 @@
         </div>
       </div>
       
-    </form>
+    <!-- </form> -->
     
     <script src="/client/js/rules.js"></script>
     <script src="/client/js/board.js"></script>

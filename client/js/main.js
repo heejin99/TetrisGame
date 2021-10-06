@@ -174,20 +174,6 @@ function repeatM(timeStamp, sec) {
     if (timeStamp - time > sec) {
         if(!validMove(mainBl, mainMatrx ,0, 1)) {
             nextStep()
-            // stack(mainBl, mainMatrx)
-            // mainBl = subBl
-            // subBl = createBlock()
-
-            // mainMatrx[0].some((value, x) => {
-            //     if (value > 0) {
-            //         window.cancelAnimationFrame(reqId)
-            //         reqId = null
-            //         return true
-            //     }
-            // })
-            // if(reqId == null) {
-            //     return;
-            // }
         }
         time = timeStamp
     }
@@ -227,7 +213,7 @@ function repeatMotion(timeStamp) {
             
             globalAddscore = 0
             addLines(fillLines.length)
-            if (lines >= 10) {
+            if (lines >= 10 && (lines / 10 == 1 || lines / 10 == 2 || lines / 10 == 3 ||lines/10==4||lines/10==5)) {
                 addLevel(1)
                 // addLines()
             }

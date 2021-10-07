@@ -5,9 +5,6 @@ function getEmptyBoard(rows, cols) {
         matrix.push(new Array(cols).fill(0))
     }
     return matrix
-    // return Array.from(
-    //     {length: MAIN_ROWS}, () => Array(MAIN_COLS).fill(0)
-    // )
 }
 
 function stack(block, matrix) {
@@ -87,3 +84,4 @@ function drawcombo(ctx, comboCnt, colors) {
     }
     ctx.globalAlpha = 1.0
 }
+

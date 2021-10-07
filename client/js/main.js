@@ -151,16 +151,39 @@ function quit() {
     mainCtx.fillStyle = '#ffffff'
     mainCtx.fillText('게임 오버', 2.8, 4.2)
 
-    let highScore = Number(highScoreElem.textContent)
-    if(totalScore > highScore) {
-        localStorage.setItem('highScore', totalScore)
-        highScoreElem.textContent = totalScore
-        mainCtx.fillText('기록 갱신', 2.8, 4.2)
-    } else {
-        mainCtx.fillText('게임 오버', 2.8, 4.2)
-    }
-
-
+    // let highScore = Number(highScoreElem.textContent)
+    // if(totalScore > highScore) {
+    //     localStorage.setItem('highScore', totalScore)
+    //     highScoreElem.textContent = totalScore
+    //     mainCtx.fillText('기록 갱신', 2.8, 4.2)
+    // } else {
+    //     mainCtx.fillText('게임 오버', 2.8, 4.2)
+    // }
+    const endGame = displayEndgame()
+    const highScore = parseInt(highScoreElem.textcontent, 10)
+    gamesGetRequest()
+        .then(res => res.json())
+        .then(json => {
+            if(totalScore>highScore) {
+                displayhighScore(endGame)
+                if (loggedIn) {
+                    const game = {
+                        user_id : user.user_id,
+                        score: highScore
+                    }
+                    gamePostRequest(game)
+                } else {
+                    displayLogin()
+                    afterLogin(()=> {
+                        const gmae={
+                            user_id: user.user_id,
+                            score: highScore
+                        }
+                        gamePostRequest()
+                    })
+                }
+            }
+        })
     gameStatus = 'Q'
 }
 

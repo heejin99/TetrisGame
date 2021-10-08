@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     // db.query('SELECT * FROM tetris WHERE highscore=(SELECT max(highscore) FROM tetris)', (err, row) => {
     //     if(err) return res.json({success:false, err})
     //     console.log(row[0], 'hs', row)
-    //     let totalScore = 0
+    //     let totalScore = 0 req.session.total
     //     if (row[0].highscore < totalScore) {
     //         db.query('update tetris set highscore=? where userId=?', [row[0], req.session.user], (error, rows) => {
     //             if(error) return res.json({success: false, error})

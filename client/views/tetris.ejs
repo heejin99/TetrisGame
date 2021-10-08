@@ -9,6 +9,48 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
   </head>
   <body>
+    <div class="page-container">
+      <div class="grid-column menu">
+        <h1>Tetris</h1>
+        <button id="start">New Game</button><br>
+        <button id="pause">Pause</button><br>
+        <button id="show-leaderboard">Leader Board</button><br>
+        <button id="login-button">Login</button><br>
+        <div id="login" class="menu-modal">
+          <form>
+            <label for="id">ID: </label>
+            <input type="text" name="id"><br>
+            <label for="password">Password: </label>
+            <input type="password" name="password"><br>
+            <input id="submitUser" type="submit" value="Login">
+          </div>
+          </form>
+        </div>
+        <button id="signup-button">Signup</button><br>
+        <div id="signup" class="menu-modal">
+          <form>
+            <label for="id">ID: </label>
+            <input type="text" name="id"><br>
+            <label for="password">Password: </label>
+            <input type="password" name="password"><br>
+            <label for="nickname">Nick-Name: </label>
+            <input type="text" name="nickname"><br>
+            <input id="submitUser" type="submit" value="Signup">
+          </form>
+        </div>
+      </div>
+      <div class="grid-column tetris-container">
+        <table class="board">
+        </table>
+      </div>
+      <div class="grid-column score-box">
+        <h2>Score: <span id="score">0</span></h2>
+        <div id="leaderboard">
+        </div>
+      </div>
+      <div id="end-game" class="endgame-modal">
+      </div>
+    </div>
     <!-- <form method="post" action="/api/"> -->
       <div class="wrap">
         <div class="main-cnt" >

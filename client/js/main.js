@@ -8,6 +8,13 @@ let reqId = null
 let timeRemove = 0
 let fillLines = []
 
+const loginButton = document.querySelector('#login-button')
+const signupButton = document.querySelector('#signup-button')
+const showLeaderBoard = document.querySelector('#show-leaderboard')
+
+loginButton.addEventListener('click', displayLogin)
+signupButton.addEventListener('click', displaySigniup)
+showLeaderBoard.addEventListener('click', displayLeaders)
 let playing = false
 let totalScore = 0
 let scoreElem = document.querySelector('#score')
@@ -64,6 +71,18 @@ function addScore(score) {
     }, 1000)
 }
 
+  
+function isHighScore (scoreNum, games) {
+    let minHighScore
+    if (games.length >= 10) {
+      minHighScore = Math.min(...games.map(game => game.score))
+    } else {
+      minHighScore = 0
+    }
+    return scoreNum > minHighScore
+}
+
+
 function addLevel(level) {
     currentLevel += level
     levelElem.textContent = currentLevel
@@ -77,6 +96,7 @@ function addLevel(level) {
         levelUpElem.textContent=""
     }, 2000)
 }
+
 function keyHandler(event) {
     const inputKey = event.keyCode
 
@@ -117,6 +137,7 @@ function setBlock() {
 
 function start() {
     reset()
+    console.log('start')
     gameStatus = 'S'
     window.addEventListener('click', event => {})
     window.addEventListener('keydown', keyHandler)
@@ -124,6 +145,7 @@ function start() {
     repeatMotion(0)
     resetScore()
     highScoreElem.textContent = localStorage.getItem('highScore')||0
+    // scoreElem.textContent = 0
 }
 
 function pause() {
@@ -137,10 +159,15 @@ function pause() {
         mainCtx.font = '1px NeoDungGeunMo'
         mainCtx.fillStyle = '#ffffff'
         mainCtx.fillText('일시 정지', 2.8, 4.2)
-    } else {
-        gameStatus = 'S'
-        repeatMotion()
     }
+    else {
+        resume()
+    }
+}
+
+function resume() {
+    gameStatus = 'S'
+    repeatMotion()
 }
 
 function quit() {
@@ -150,40 +177,33 @@ function quit() {
     mainCtx.font = '1px NeoDungGeunMo'
     mainCtx.fillStyle = '#ffffff'
     mainCtx.fillText('게임 오버', 2.8, 4.2)
-
-    // let highScore = Number(highScoreElem.textContent)
-    // if(totalScore > highScore) {
-    //     localStorage.setItem('highScore', totalScore)
-    //     highScoreElem.textContent = totalScore
-    //     mainCtx.fillText('기록 갱신', 2.8, 4.2)
-    // } else {
-    //     mainCtx.fillText('게임 오버', 2.8, 4.2)
-    // }
-    const endGame = displayEndgame()
-    const highScore = parseInt(highScoreElem.textcontent, 10)
-    gamesGetRequest()
-        .then(res => res.json())
-        .then(json => {
-            if(totalScore>highScore) {
-                displayhighScore(endGame)
-                if (loggedIn) {
-                    const game = {
-                        user_id : user.user_id,
-                        score: highScore
-                    }
-                    gamePostRequest(game)
-                } else {
-                    displayLogin()
-                    afterLogin(()=> {
-                        const gmae={
-                            user_id: user.user_id,
-                            score: highScore
-                        }
-                        gamePostRequest()
-                    })
-                }
-            }
-        })
+    
+    // pause()
+    // const endGame = displayEndgame()
+    // const highScore = parseInt(score.textcontent, 10)
+    // gamesGetRequest()
+    //     .then(res => res.json())
+    //     .then(json => {
+    //         if(isHighScore(highScore, json)) {
+    //             displayhighScore(endGame)
+    //             if (loggedIn) {
+    //                 const game = {
+    //                     user_id : user.user_id,
+    //                     score: highScore
+    //                 }
+    //                 gamePostRequest(game)
+    //             } else {
+    //                 displayLogin()
+    //                 afterLogin(()=> {
+    //                     const game={
+    //                         user_id: user.user_id,
+    //                         score: highScore
+    //                     }
+    //                     gamePostRequest(game)
+    //                 })
+    //             }
+    //         }
+    //     })
     gameStatus = 'Q'
 }
 
@@ -232,13 +252,10 @@ function repeatMotion(timeStamp) {
             removeLines(mainMatrx, fillLines)
             globalAddscore += 50*fillLines.length*currentLevel
             addScore(globalAddscore)
-            console.log(totalScore)
-            
             globalAddscore = 0
             addLines(fillLines.length)
             if (lines >= 10 && (lines / 10 == 1 || lines / 10 == 2 || lines / 10 == 3 ||lines/10==4||lines/10==5)) {
                 addLevel(1)
-                // addLines()
             }
             initRemoveLines()
             setBlock()
@@ -313,29 +330,4 @@ function pressKey(keyCode) {
         }
         keyHandler(obj)
     }
-}
-
-(function() {
-    main();
-})
-
-function main() {
-    resize()
-    window.addEventListener('resize', resize)
-}
-function resize() {
-    const INNERWIDTH = (window.innerWidth > 660) ? 660: window.innerWidth
-    const MAINWIDTH = Math.floor(INNERWIDTH*0.6)
-    const BLOCKSIZE = Math.floor(MAINWIDTH/MAIN_COLS)
-
-    mainCtx.canvas.width=BLOCKSIZE*MAIN_COLS
-    mainCtx.canvas.height=BLOCKSIZE*MAIN_ROWS
-    mainCtx.scale(BLOCKSIZE, BLOCKSIZE)
-    
-    subCtx.canvas.width=BLOCKSIZE*SUB_COLS
-    subCtx.canvas.height=BLOCKSIZE*SUB_ROWS
-    subCtx.scale(BLOCKSIZE, BLOCKSIZE)
-
-    // const FONT = INNERWIDTH/350
-    // document.querySelector('#sub-cnt').style.fontSize = FONT+'rem'
 }

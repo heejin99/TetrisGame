@@ -8,10 +8,62 @@ html {
     font-size: 17px;
 }
 
+
+
 .wrap {
-    display: grid;
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+    /* display: grid;
     grid-template-columns: 2fr 1fr;
-    width: fit-content;
+    width: fit-content; */
+}
+
+
+.grid-column {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.menu {
+    margin-left: 10.5rem;
+    height: 1000px;
+    padding-inline: 2rem;
+    background-color: whitesmoke;
+    color: whitesmoke;
+    width: 20%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.menu button{
+    width:100%;
+    background-color: black;
+    color: whitesmoke;
+    margin-bottom: .5rem;
+    padding: .25rem;
+    font-size: 1.5rem;
+    border-radius: 3px;
+}
+
+
+.menu-modal{
+    display: none;
+    background-color: black;
+    margin-bottom: .5rem;
+    margin-top: -.5rem;
+    padding: 1rem;
+    overflow-y: auto;
+    max-height: 15rem;
+    font-size: 1.3rem;
+}
+  
+.menu-modal input {
+    font-size: 1.3rem;
+    margin-bottom: .25rem;
+    margin-top: .25rem;
+    border: 1px solid #09FBD3;
+    border-radius: 3px;
 }
 
 .main-cnt {
@@ -64,33 +116,36 @@ html {
 }
 
 .bottomCnt {
-    display: grid;
+    display: flex;
     width: 97vw;
     height: 27vh;
-    grid-template-rows: 2fr 1fr;
+    /* grid-template-rows: 2fr 1fr; */
     max-width: 660px;
 }
 
 .keypad {
+    /* float: left; */
     display: grid;
-    margin-left: 25%;
-    margin-top: -15%;
+    /* padding: 2vw; */
+    /* margin-left: 25%; */
+    /* margin-top: -15%; */
     grid-template-columns: 2fr 1fr;
 }
 
 .arrowKeyCnt {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* display: grid;  */
+    /* grid-template-columns: 1fr 1fr; */
 }
 
 .arrowKeyUp {
-    /* display: grid; */
+    margin-bottom: -1.5vw;
+    /* display: flex; */
     /* grid-template-columns: 2fr 2fr; */
 
 }
 
 .arrowKeyDown {
-    /* display: grid; */
+    /* display: flex; */
     /* grid-template-columns: 1fr 1fr; */
 
 }
@@ -126,6 +181,7 @@ html {
     text-align: center;
     padding: 0;
     margin: 0;
+    /* margin-left: 1.5vw; */
     font-size: 20px;
     width: 15vh;
     height: 9vh;
@@ -278,5 +334,26 @@ html {
         margin: 0;
         height: 7vh;
         width: 40vh;
+    }
+}
+
+@media screen and (max-width: 1050px){
+    .tetris-container{
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+}
+  
+@media screen and (max-width: 768px){
+    .menu{
+      margin-right: 1.5rem;
+      height: 35rem;
+      width: 100%;
+    }
+  
+    .score-box{
+      width: 80%;
+      padding-left: 10%;
+      padding-right: 10%;
     }
 }

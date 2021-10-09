@@ -84,4 +84,3 @@ function drawcombo(ctx, comboCnt, colors) {
     }
     ctx.globalAlpha = 1.0
 }
-

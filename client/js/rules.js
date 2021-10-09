@@ -10,6 +10,7 @@ const mainCtx = mainCanvas.getContext('2d')
 
 const subCanvas = document.querySelector('#sub-board')
 const subCtx = subCanvas.getContext('2d')
+
 // 캔버스 크기 계산
 mainCtx.canvas.width = MAIN_COLS*BLOCK_SIZE
 mainCtx.canvas.height = MAIN_ROWS*BLOCK_SIZE
@@ -77,3 +78,4 @@ const KEY = {
     DOWN: 40
 }
 Object.freeze(KEY)
+

@@ -2,68 +2,63 @@ const express = require('express')
 const router = express.Router()
 
 const db = require('../config/db')
-router.get('/', (req, res) => {
-    // db.query('SELECT * FROM tetris WHERE highscore=(SELECT max(highscore) FROM tetris)', (err, row) => {
-    //     if(err) return res.json({success:false, err})
-    //     console.log(row[0], 'hs', row)
-    //     let totalScore = 0 req.session.total
-    //     if (row[0].highscore < totalScore) {
-    //         db.query('update tetris set highscore=? where userId=?', [row[0], req.session.user], (error, rows) => {
-    //             if(error) return res.json({success: false, error})
-    //             res.render('tetris' , {
+const axios = require('axios')
 
-    //             })
-    //             db.query('SELECT * FROM tetris', (errr, rro) => {
-    //                 if(errr) return res.json({success: false, errr})
-    //                 res.render('tetris', {
-    //                     highscore: row[0].highscore
-    //                 })
-    //             })
-    //         })
-    //     }
-    // })
-    db.query('SELECT * FROM tetris', (err, row) => {
-        if(err) return res.json({success: false, err})
-        console.log(row[0])
-        res.render('tetris', {
-            highscore: row[0].highscore
-        })
-    })
+// const getJson = () => {
+//     db.query('SELECT * FROM tetris', (err, row) => {
+//         JSON.stringify({
+//             'method':'get',
+//             'score': row[0].highscore,
+//             'name': req.session.nickname
+//         })
+//     })
+// // }
+
+// const getJson = () => {
+//     db.query('SELECT * FROM tetris', (err, row) => {
+//         axios.get('/')
+//     })
+// }
+
+router.get('/', (req, res) => {
+        console.log(req.session.loggedin+"tetris"+req.session.nickname)
+        if(req.session.loggedin) {
+            res.render('tetris', {
+                loggedin: req.session.loggedin,
+                nickname: req.session.nickname,
+                user: req.session,
+            })
+        } else {
+            console.log('hello')
+            res.render('tetris', {
+                loggedin: false
+            })
+        } 
+    
 })
 
-// function highScore() {
-//     db.query('SELECT GRATEST(INT(highscore)) FROM tetris', (err, row) => {
-//         if(err) return res.json({success:false, err})
-//         if (row[0] < totalScore) {
-//             db.query('update tetris set highscore=? where userId=?', [row[0], req.session.user], (error, rows) => {
-//                 if(error) return res.json({success: false, error})
-//                 db.query('SELECT * FROM tetris', (errr, rro) => {
-//                     if(errr) return res.json({success: false, errr})
-//                     res.render('tetris', {
-//                         highscore: row[0].highscore
-//                     })
-//                 })
-//             })
-//         }
-//     })
-//         localStorage.setItem('highScore', totalScore)
-//         highScoreElem.textContent = totalScore
-//         mainCtx.fillText('기록 갱신', 2.8, 4.2)
-//     // } else {
-//         mainCtx.fillText('게임 오버', 2.8, 4.2)
-//  //   }
-
-// }
-// router.post('/', (req, res) => {
-//     db.query('SELECT * FROM tetris', (err, row) => {
-        
-//         db.query('INSERT INTO tetris(`userId`) VALUES (?)', req.session.userId, (errr, rows) =>{
-//             if(err) return res.json({success: false, errr})
-//             console.log(rows)
-//             res.redirect('/api')
+router.post('/', (req, res) => {
+    db.query('SELECT * FROM tetris WHERE userId=?', req.session.user, (err, row) => {
+        if (row.length > 0 && (row.userId || row[0].userId) == req.session.user) {
             
-//         })
-//     }) 
-// })
+                db.query('update tetris set highscore=? where userId=?', [req.query.score, req.session.user], (error, rows) => {
+                    if(error) return res.json({updatesuccess: false, error})
+                    console.log(row[0].highscore)
+                    res.json({highScore: row[0].highscore})
+                })
+            
+        }
+        else {
+            db.query('INSERT INTO tetris(`userId`, `highscore`) VALUES (?,?)', [req.session.user, req.query.score], (errr, rows) =>{
+                if(err) return res.json({success: false, errr})
+                console.log('post rows',rows,row)
+                // console.log('data ', data)
+                    res.json({highScore: row[0].highscore})
+                        
+                })
+            }
+    })
+    
+})
 
-module.exports = router;
+module.exports = router

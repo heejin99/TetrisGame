@@ -11,10 +11,10 @@ let fillLines = []
 const loginButton = document.querySelector('#login-button')
 const signupButton = document.querySelector('#signup-button')
 const showLeaderBoard = document.querySelector('#show-leaderboard')
+const logoutButton = document.querySelector('#logout-button')
 
-loginButton.addEventListener('click', displayLogin)
-signupButton.addEventListener('click', displaySigniup)
 showLeaderBoard.addEventListener('click', displayLeaders)
+let nickname = document.querySelector('#nickname')
 let playing = false
 let totalScore = 0
 let scoreElem = document.querySelector('#score')
@@ -34,6 +34,30 @@ let removeLinesId = null
 
 let highScoreElem = document.querySelector('#highScore')
 let comboCnt = 0
+
+function highscores () {
+    let highScore = Number(scoreElem.textContent)
+    // ajax({
+    //     url: '/api',
+    //     type: 'get',
+    //     dataType: 'JSON',
+    //     data: {'highscore': highScore}
+    // })
+    // $.ajax({
+    //     url: '/api',
+    //     type: 'GET',
+    //     dataType : 'JSON',
+    //     data : {"highscore": highScore}
+    // })
+
+    // .sucess(function(json) {
+    //     $(".result").textContent(json.highscore)
+    // })
+    // .fail(function(xhr, status,errorThrown){
+    //     alert('Ajax failed')
+    // })
+    return highScore
+}
 
 function reset() {
     mainMatrx = getEmptyBoard(MAIN_ROWS, MAIN_COLS)
@@ -71,16 +95,6 @@ function addScore(score) {
     }, 1000)
 }
 
-  
-function isHighScore (scoreNum, games) {
-    let minHighScore
-    if (games.length >= 10) {
-      minHighScore = Math.min(...games.map(game => game.score))
-    } else {
-      minHighScore = 0
-    }
-    return scoreNum > minHighScore
-}
 
 
 function addLevel(level) {
@@ -144,7 +158,6 @@ function start() {
     setBlock()
     repeatMotion(0)
     resetScore()
-    highScoreElem.textContent = localStorage.getItem('highScore')||0
     // scoreElem.textContent = 0
 }
 
@@ -169,6 +182,23 @@ function resume() {
     gameStatus = 'S'
     repeatMotion()
 }
+  
+function isHighScore (scoreNum, games) {
+    let minHighScore
+    console.log(games, "games")
+    console.log(games.data.score)
+    console.log(games.length)
+    if (games.length >= 10) {
+      minHighScore = Math.min(...games.map(game => game.score))
+    } else {
+      minHighScore = 0
+    }
+    console.log(minHighScore," min")
+    console.log(scoreNum, " score")
+    console.log(scoreNum > minHighScore)
+    return scoreNum > minHighScore
+}
+
 
 function quit() {
     
@@ -177,34 +207,45 @@ function quit() {
     mainCtx.font = '1px NeoDungGeunMo'
     mainCtx.fillStyle = '#ffffff'
     mainCtx.fillText('게임 오버', 2.8, 4.2)
-    
-    // pause()
-    // const endGame = displayEndgame()
-    // const highScore = parseInt(score.textcontent, 10)
-    // gamesGetRequest()
-    //     .then(res => res.json())
-    //     .then(json => {
-    //         if(isHighScore(highScore, json)) {
-    //             displayhighScore(endGame)
-    //             if (loggedIn) {
-    //                 const game = {
-    //                     user_id : user.user_id,
-    //                     score: highScore
-    //                 }
-    //                 gamePostRequest(game)
-    //             } else {
-    //                 displayLogin()
-    //                 afterLogin(()=> {
-    //                     const game={
-    //                         user_id: user.user_id,
-    //                         score: highScore
-    //                     }
-    //                     gamePostRequest(game)
-    //                 })
-    //             }
-    //         }
-    //     })
+    let highscoresd = Number(scoreElem.textContent)
+    highScoreElem.textContent = highScore
+    // let originalScore = Number(highScoreElem.textContent)
+    pause()
+    const endGame = displayEndGame()
+    gamesGetRequest()
+        .then(json => {
+            if(isHighScore(highscoresd, json)) {
+                displayHighScore(endGame)
+                if (loggedin) {
+                    const game = {
+                        user_id : nickname.textContent,
+                        score: highScore
+                    }
+                    gamePostRequest(game)
+                } else {
+                    displayLogin()
+                    afterLogin(()=> {
+                        const game={
+                            user_id: nickname,
+                            score: highScore
+                        }
+                        gamePostRequest(game)
+                    })
+                }
+            }
+        })
     gameStatus = 'Q'
+}
+
+function afterLogin(callback) {
+    const interval = window.setInterval(()=>{
+        if (loginRequest) {
+            loginRequest.then(()=>{
+                callback()
+                window.clearInterval(interval)
+            })
+        }
+    }, 1000)
 }
 
 function initRemoveLines() {
@@ -269,7 +310,6 @@ function repeatMotion(timeStamp) {
     }
 }
 function rebuild() {
-    resize()
     drawLatt(mainMatrx, mainCtx)
     drawLatt((new Array(4)).fill((new Array(4)).fill(0)), subCtx)
     draw(mainBl, mainCtx)
@@ -331,3 +371,4 @@ function pressKey(keyCode) {
         keyHandler(obj)
     }
 }
+

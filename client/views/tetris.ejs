@@ -7,83 +7,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
-    <!-- <div class="page-container">
-      <div class="grid-column menu">
-        <h1>Tetris</h1>
-        <button id="start">Start</button><br>
-        <button id="pause">Pause</button><br>
-        <button id="resume">Resume</button><br>
-        <button id="quit">Quit</button><br>
-        <button id="show-leaderboard">Leader Board</button><br>
-        <button id="login-button">Login</button><br>
-        <div id="login" class="menu-modal">
-          <form>
-            <label for="id">ID: </label>
-            <input type="text" name="id"><br>
-            <label for="password">Password: </label>
-            <input type="password" name="password"><br>
-            <input id="submitUser" type="submit" value="Login">
-          </div>
-          </form>
-        </div>
-        <button id="signup-button">Signup</button><br>
-        <div id="signup" class="menu-modal">
-          <form>
-            <label for="id">ID: </label>
-            <input type="text" name="id"><br>
-            <label for="password">Password: </label>
-            <input type="password" name="password"><br>
-            <label for="nickname">Nick-Name: </label>
-            <input type="text" name="nickname"><br>
-            <input id="submitUser" type="submit" value="Signup">
-          </form>
-        </div>
-      </div>
-      <div class="main-cnt" >
-        <canvas id="main-board" class="main-board"></canvas>
-      </div>
-      <div class="sub-cnt">
-        <canvas id="sub-board" class="sub-board"></canvas>
-         <h2>Score: <span id="score">0</span></h2> -->
-        <!-- <p>레벨: <span id="level"></span><span id="levelUp" class="levelUp"></span></p>
-        <p>점수: <span id="score"></span><span id="addScore" class="addScore"></span></p>
-        <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
-        
-        <div id="leaderboard">
-        </div>
-      </div>
-      <div id="end-game" class="endgame-modal">
-      </div>
-    </div> -->
       <div class="wrap">
         <div class="grid-column menu">
-          <h1>Tetris</h1>
-          <button id="login-button">Login</button><br>
-          <div id="login" class="menu-modal">
-            <form>
-              <label for="id">ID: </label>
-              <input type="text" name="id"><br>
-              <label for="password">Password: </label>
-              <input type="password" name="password"><br>
-              <input id="submitUser" type="submit" value="Login">
-
-            </form>
-          </div>
-          <button id="signup-button">Signup</button><br>
-          <div id="signup" class="menu-modal">
-            <form>
-              <label for="id">ID: </label>
-              <input type="text" name="id"><br>
-              <label for="password">Password: </label>
-              <input type="password" name="password"><br>
-              <label for="nickname">Nick-Name: </label>
-              <input type="text" name="nickname"><br>
-              <input id="submitUser" type="submit" value="Signup">
-
-            </form>
-          </div>
+          <h1><a href="/api">Tetris</a></h1>
+            <% if(!loggedin) { %>
+              <button id="login-button" onclick="displayLogin()">Login</button><br>
+              <div id="login" class="menu-modal">
+                <form method="POST" action="/api/login">
+                  <label for="id">ID: </label>
+                  <input type="text" name="id"><br>
+                  <label for="password">Password: </label>
+                  <input type="password" name="password"><br>
+                  <input id="submitUser" type="submit" value="Login">
+                </form>
+              </div>
+              <button id="signup-button" onclick="displaySigniup()">Signup</button><br>
+            
+              <div id="signup" class="menu-modal">
+                <form method="post" action="/api/signup">
+                  <label for="id">ID: </label>
+                  <input type="text" name="id"><br>
+                  <label for="password">Password: </label>
+                  <input type="password" name="password"><br>
+                  <label for="nickname">Nick-Name: </label>
+                  <input type="text" name="nickname"><br>
+                  <input id="submitUser" type="submit" value="Signup">
+                </form>
+              </div>
+            <% } else { %>
+              <h2 id="nickname"><%=nickname%></h2>
+              <button id="logout-button"><a href="/api/logout">Logout</a></button><br>
+            <% } %>
           <button id="show-leaderboard">Leader Board</button><br>
           
         </div>
@@ -95,7 +52,7 @@
           <p>레벨: <span id="level"></span><span id="levelUp" class="levelUp"></span></p>
           <p>점수: <span id="score"></span><span id="addScore" class="addScore"></span></p>
           <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
-          
+          <p>최고 점수: <span id="highScore"></span></p>
           <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
           <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
           <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
@@ -122,9 +79,10 @@
           </div>
         </p>
       </div>
-      
-      
-    <!-- </form> -->
+    <script>
+      let loggedin = '<%=loggedin%>'
+    </script>
+    <script src="/client/js/api.js"></script>
     <script src="/client/js/display.js"></script>
     <script src="/client/js/rules.js"></script>
     <script src="/client/js/board.js"></script>

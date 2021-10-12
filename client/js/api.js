@@ -59,12 +59,26 @@ function gamePostRequest(body) {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
+    }).then(response => {
+            document.querySelector('#highScore').textContent=response.data.highScore
+            console.log('res: ',response)
     })
 }
 
 function gamesGetRequest () {
     return axios({
         method: 'get',
-        url: BASE_URL+'api'
+        url: BASE_URL+'api',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
     })
+    // .then(response => {
+    //     // document.querySelector('#highScore').textContent=response.data.highScore
+    //     console.log('res: ',response)
+    // })
+    // .catch(error => {
+    //     console.log(error)
+    // })
 }

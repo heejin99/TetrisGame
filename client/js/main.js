@@ -185,11 +185,11 @@ function resume() {
   
 function isHighScore (scoreNum, games) {
     let minHighScore
-    console.log(games, "games")
-    console.log(games.data.score)
-    console.log(games.length)
-    if (games.length >= 10) {
-      minHighScore = Math.min(...games.map(game => game.score))
+    console.log(games.data.highScore)
+    console.log(games.data)
+    if (games.data.highScore >= 10) {
+      minHighScore = Math.min(...games.data.highScore.map(game => game.score))
+      console.log(game.score)
     } else {
       minHighScore = 0
     }
@@ -207,14 +207,15 @@ function quit() {
     mainCtx.font = '1px NeoDungGeunMo'
     mainCtx.fillStyle = '#ffffff'
     mainCtx.fillText('게임 오버', 2.8, 4.2)
-    let highscoresd = Number(scoreElem.textContent)
-    highScoreElem.textContent = highScore
+    let highScore = Number(scoreElem.textContent)
+    // highScoreElem.textContent = JSON.parse()
     // let originalScore = Number(highScoreElem.textContent)
     pause()
     const endGame = displayEndGame()
     gamesGetRequest()
         .then(json => {
-            if(isHighScore(highscoresd, json)) {
+            console.log('json: ',json)
+            if(isHighScore(highScore, json)) {
                 displayHighScore(endGame)
                 if (loggedin) {
                     const game = {

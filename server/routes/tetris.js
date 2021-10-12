@@ -21,20 +21,47 @@ const axios = require('axios')
 // }
 
 router.get('/', (req, res) => {
+    db.query('SELECT * FROM tetris WHERE userId=?', req.session.user, (err, row) => {
         console.log(req.session.loggedin+"tetris"+req.session.nickname)
         if(req.session.loggedin) {
-            res.render('tetris', {
+            res.json({
+                highScore: row[0].highscore,
                 loggedin: req.session.loggedin,
                 nickname: req.session.nickname,
-                user: req.session,
+                user: req.session
             })
+            // res.header('highScore', JSON.stringify({highScore: row[0].highscore}))
+            // res.render('tetris', {
+            //     loggedin: req.session.loggedin,
+            //     nickname: req.session.nickname,
+            //     user: req.session,
+            // })
+
         } else {
             console.log('hello')
             res.render('tetris', {
                 loggedin: false
             })
         } 
-    
+    })
+})
+
+router.get('/tetris', (req, res) => {
+        console.log(req.session.loggedin+"tetris"+req.session.nickname)
+        if(req.session.loggedin) {
+            // res.header('highScore', JSON.stringify({highScore: row[0].highscore}))
+            res.render('tetris', {
+                loggedin: req.session.loggedin,
+                nickname: req.session.nickname,
+                user: req.session,
+            })
+
+        } else {
+            console.log('hello')
+            res.render('tetris', {
+                loggedin: false
+            })
+        } 
 })
 
 router.post('/', (req, res) => {
@@ -44,7 +71,6 @@ router.post('/', (req, res) => {
                 db.query('update tetris set highscore=? where userId=?', [req.query.score, req.session.user], (error, rows) => {
                     if(error) return res.json({updatesuccess: false, error})
                     console.log(row[0].highscore)
-                    res.json({highScore: row[0].highscore})
                 })
             
         }
@@ -53,10 +79,10 @@ router.post('/', (req, res) => {
                 if(err) return res.json({success: false, errr})
                 console.log('post rows',rows,row)
                 // console.log('data ', data)
-                    res.json({highScore: row[0].highscore})
                         
                 })
             }
+            res.json({highScore: row[0].highscore})
     })
     
 })

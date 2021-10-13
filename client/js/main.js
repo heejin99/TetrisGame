@@ -158,7 +158,6 @@ function start() {
     setBlock()
     repeatMotion(0)
     resetScore()
-    // scoreElem.textContent = 0
 }
 
 function pause() {
@@ -185,17 +184,14 @@ function resume() {
   
 function isHighScore (scoreNum, games) {
     let minHighScore
-    console.log(games.data.highScore)
-    console.log(games.data)
+    let maxHighScore
     if (games.data.highScore >= 10) {
-      minHighScore = Math.min(...games.data.highScore.map(game => game.score))
-      console.log(game.score)
+      minHighScore = Math.min(games.data.highScore, scoreNum)
+      maxHighScore = Math.max(games.data.highScore, scoreNum)
     } else {
       minHighScore = 0
     }
-    console.log(minHighScore," min")
-    console.log(scoreNum, " score")
-    console.log(scoreNum > minHighScore)
+    document.querySelector('#highScore').textContent=maxHighScore
     return scoreNum > minHighScore
 }
 
@@ -208,8 +204,6 @@ function quit() {
     mainCtx.fillStyle = '#ffffff'
     mainCtx.fillText('게임 오버', 2.8, 4.2)
     let highScore = Number(scoreElem.textContent)
-    // highScoreElem.textContent = JSON.parse()
-    // let originalScore = Number(highScoreElem.textContent)
     pause()
     const endGame = displayEndGame()
     gamesGetRequest()
@@ -217,6 +211,8 @@ function quit() {
             console.log('json: ',json)
             if(isHighScore(highScore, json)) {
                 displayHighScore(endGame)
+                // document.querySelector('#highScore').textContent=response.data.highScore
+                console.log('뭐야')
                 if (loggedin) {
                     const game = {
                         user_id : nickname.textContent,

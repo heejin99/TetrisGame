@@ -35,29 +35,6 @@ let removeLinesId = null
 let highScoreElem = document.querySelector('#highScore')
 let comboCnt = 0
 
-function highscores () {
-    let highScore = Number(scoreElem.textContent)
-    // ajax({
-    //     url: '/api',
-    //     type: 'get',
-    //     dataType: 'JSON',
-    //     data: {'highscore': highScore}
-    // })
-    // $.ajax({
-    //     url: '/api',
-    //     type: 'GET',
-    //     dataType : 'JSON',
-    //     data : {"highscore": highScore}
-    // })
-
-    // .sucess(function(json) {
-    //     $(".result").textContent(json.highscore)
-    // })
-    // .fail(function(xhr, status,errorThrown){
-    //     alert('Ajax failed')
-    // })
-    return highScore
-}
 
 function reset() {
     mainMatrx = getEmptyBoard(MAIN_ROWS, MAIN_COLS)
@@ -158,6 +135,10 @@ function start() {
     setBlock()
     repeatMotion(0)
     resetScore()
+    gamesGetRequest()
+        .then(response => {
+            highScoreElem.textContent = response.data.highScore
+        })
 }
 
 function pause() {
@@ -194,7 +175,6 @@ function isHighScore (scoreNum, games) {
     document.querySelector('#highScore').textContent=maxHighScore
     return scoreNum > minHighScore
 }
-
 
 function quit() {
     

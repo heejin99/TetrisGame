@@ -52,23 +52,25 @@ router.get('/tetris', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+    // db.query
     db.query('SELECT * FROM tetris WHERE userId=?', req.session.user, (err, row) => {
-        // if (row.userId == req.session.user) {
-        //         db.query('update tetris set highscore=? where userId=?', [req.query.score, req.session.user], (error, rows) => {
-        //             if(error) return res.json({updatesuccess: false, error})
-        //             console.log(row)
-        //             console.log(row[0].highscore)
-        //         })
-        // }
-        // else {
+        if (row.length == 0) {
             db.query('INSERT INTO tetris(`userId`, `highscore`) VALUES (?,?)', [req.session.user, req.query.score], (errr, rows) =>{
                 if(err) return res.json({success: false, errr})
                 console.log('post rows',rows,row)
                 // console.log('data ', data)
                         
-                })
-            // }
+                res.json({highScore: req.query.score})
+            })
+        }
+        else if (row[0].userId === req.session.user) {
+            db.query('update tetris set highscore=? where userId=?', [req.query.score, req.session.user], (error, rows) => {
+                if(error) return res.json({updatesuccess: false, error})
+                console.log(row)
+                console.log(row[0].highscore)
+            })
             res.json({highScore: row[0].highscore})
+        }
     })
     console.log(req.session.user)
 })

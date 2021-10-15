@@ -42,6 +42,7 @@ function reset() {
     timeRemove = 0
     mainBl = null
     subBl = null
+    unDisplayEndGame()
 }
 
 function addLines(line) {
@@ -165,14 +166,11 @@ function resume() {
   
 function isHighScore (scoreNum, games) {
     let minHighScore
-    let maxHighScore
     if (games.data.highScore >= 10) {
       minHighScore = Math.min(games.data.highScore, scoreNum)
-      maxHighScore = Math.max(games.data.highScore, scoreNum)
     } else {
       minHighScore = 0
     }
-    document.querySelector('#highScore').textContent=maxHighScore
     return scoreNum > minHighScore
 }
 
@@ -191,8 +189,6 @@ function quit() {
             console.log('json: ',json)
             if(isHighScore(highScore, json)) {
                 displayHighScore(endGame)
-                // document.querySelector('#highScore').textContent=response.data.highScore
-                console.log('뭐야')
                 if (loggedin) {
                     const game = {
                         user_id : nickname.textContent,

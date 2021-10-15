@@ -14,14 +14,14 @@ function displaySigniup () {
     loginModal.style.display = 'block'
 }
 function displayEndGame () {
-  const endGameModal = document.querySelector('#quit')
+  const endGameModal = document.querySelector('#end-game')
   endGameModal.style.display = 'block'
   endGameModal.innerHTML = 'GAME OVER'
   return endGameModal
 }
 
 function unDisplayEndGame () {
-  const endGameModal = document.querySelector('#quit')
+  const endGameModal = document.querySelector('#end-game')
   endGameModal.style.display = 'none'
 }
 function hideSignup () {
@@ -33,9 +33,9 @@ function displayHighScore (endGameModal) {
     GAME OVER<br>
     최고기록: ${score.textContent}!
   `
-  // if (!loggedin) {
-  //   endGameModal.innerHTML += '로그인 먼저 진행하세요.'
-  // }
+  if (!loggedin) {
+    endGameModal.innerHTML += '로그인 먼저 진행하세요.'
+  }
 }
 function displayLeaders (games) {
     const leaderBoard = document.querySelector('#leaderboard')

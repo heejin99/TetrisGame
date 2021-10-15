@@ -11,8 +11,7 @@ router.get('/login', (req, res)=>{
         res.render('tetris.ejs', {
             user:req.session, 
             loggedin: req.session.loggedin, 
-            nickname: req.session.nickname,
-            highScore: row[0].highscore
+            nickname: req.session.nickname
         })
 })
 // 로그인
@@ -25,7 +24,7 @@ router.post('/login', (req, res) => {
             bcrypt.compare(param[1], row[0].password, (error, result) => {
                 // 비밀번호 불일치
                 if(!result) {
-                    return res.send('<script>alert("비밀번호가 틀렸습니다.다시 입력하세요");location.href="/api/login"</script>')
+                    return res.send('<script>alert("비밀번호가 틀렸습니다.다시 입력하세요");location.href="/api"</script>')
                     
                 }
                 // 비밀번호 일치
@@ -48,7 +47,7 @@ router.post('/login', (req, res) => {
                 })
             })
         } else { // ID not exists
-            return res.send('<script>alert("아이디가 존재하지 않습니다.회원가입을 먼저 진행해주세요.");location.href="/api/signup"</script>')
+            return res.send('<script>alert("아이디가 존재하지 않습니다.회원가입을 먼저 진행해주세요.");location.href="/api"</script>')
         }
     })
 })

@@ -13,7 +13,7 @@ const signupButton = document.querySelector('#signup-button')
 const showLeaderBoard = document.querySelector('#show-leaderboard')
 const logoutButton = document.querySelector('#logout-button')
 
-showLeaderBoard.addEventListener('click', displayLeaders)
+showLeaderBoard.addEventListener('click', handleLeaders)
 let nickname = document.querySelector('#nickname')
 let playing = false
 let totalScore = 0

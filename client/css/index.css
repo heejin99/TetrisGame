@@ -9,7 +9,6 @@ html {
 }
 
 
-
 .wrap {
     display: flex;
   flex-wrap: wrap;
@@ -19,6 +18,20 @@ html {
     width: fit-content; */
 }
 
+ul{
+    list-style:none; 
+    margin:0; 
+    padding:0; 
+    counter-reset:list-number;
+}
+
+ul li {
+    counter-increment: list-number;
+}
+
+ul li::before {
+    content: counter(list-number);
+}
 
 .grid-column {
     margin-top: 1rem;
@@ -26,7 +39,7 @@ html {
 }
 
 .menu {
-    margin-left: 10.5rem;
+    margin-left: 9.5rem;
     height: 1000px;
     padding-inline: 2rem;
     background-color: whitesmoke;
@@ -202,7 +215,7 @@ html {
 @media ( max-width: 480px) {
         
     html {
-        font-size: 14px;
+        font-size: 10px;
     }
 
     .wrap {
@@ -211,6 +224,47 @@ html {
         width: fit-content;
     }
 
+    .menu {
+        margin-left: 1.5rem;
+        height: 500px;
+        padding-inline: 2rem;
+        background-color: whitesmoke;
+        color: whitesmoke;
+        width: 10%;
+        border-radius: 5px;
+        text-align: center;
+    }
+    
+    .menu button{
+        width:100%;
+        background-color: black;
+        color: whitesmoke;
+        margin-bottom: .5rem;
+        padding: .25rem;
+        font-size: 1.5rem;
+        border-radius: 3px;
+    }
+    
+    
+    .menu-modal{
+        display: none;
+        background-color: black;
+        margin-bottom: .5rem;
+        margin-top: -.5rem;
+        padding: 1rem;
+        overflow-y: auto;
+        max-height: 15rem;
+        font-size: 1.3rem;
+    }
+      
+    .menu-modal input {
+        font-size: 1.3rem;
+        margin-bottom: .25rem;
+        margin-top: .25rem;
+        border: 1px solid #09FBD3;
+        border-radius: 3px;
+    }
+    
     .main-cnt {
         padding: 1px;
     }
@@ -232,16 +286,12 @@ html {
         height: 100px;
         border: 2px solid white;
     }
-
-    .highScoreTitle {
-        color: #ffa3a3;
-    }
     .start {
         background-color:cornflowerblue;
         border: 2px solid #1d42e6;
         color: #d7e5ff;
         text-align: center;
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .pause {
@@ -249,7 +299,7 @@ html {
         border: 2px solid #d36a15;
         color: #4e3513;
         text-align: center;
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .quit {
@@ -257,7 +307,7 @@ html {
         border: 2px solid #408d0d;
         color: #194d09;
         text-align: center;
-        font-size: 15px;
+        font-size: 10px;
     }
 
     .bottomCnt {

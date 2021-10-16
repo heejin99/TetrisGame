@@ -59,9 +59,6 @@ function gamePostRequest(body) {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
-    }).then(response => {
-            document.querySelector('#highScore').textContent=response.data.highScore
-            console.log('res: ',response)
     })
 }
 
@@ -74,11 +71,15 @@ function gamesGetRequest () {
             'Accept': 'application/json'
         }
     })
-    // .then(response => {
-    //     // document.querySelector('#highScore').textContent=response.data.highScore
-    //     console.log('res: ',response)
-    // })
-    // .catch(error => {
-    //     console.log(error)
-    // })
+}
+
+function leaderGetRequest () {
+    return axios({
+        method: 'get',
+        url: BASE_URL+'api/leader',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
 }

@@ -51,6 +51,14 @@ router.get('/tetris', (req, res) => {
         } 
 })
 
+router.get('/leader', (req, res) => {
+    db.query('SELECT * FROM tetris LEFT JOIN user ON tetris.userId = user.user_id ORDER BY tetris.highscore desc',(err, row) => {
+        res.json({
+            user: row
+        })
+    })
+})
+
 router.post('/', (req, res) => {
     // db.query
     db.query('SELECT * FROM tetris WHERE userId=?', req.session.user, (err, row) => {

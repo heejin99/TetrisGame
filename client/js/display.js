@@ -39,18 +39,22 @@ function displayHighScore (endGameModal) {
 }
 function displayLeaders (games) {
     const leaderBoard = document.querySelector('#leaderboard')
-    leaderBoard.innerHTML = '<h2>High Scores</h2>'
+    leaderBoard.innerHTML = '<h1>## High Scores ##</h1>'
     const leaderList = document.createElement('ul')
     leaderBoard.appendChild(leaderList)
-    for (const game of games) {
+    for (const game of games.data.user) {
       const leaderItem = document.createElement('li')
-      leaderItem.textContent = `${game.user.name} - ${game.score}`
+      leaderItem.style.fontSize = "1.5rem"
+      leaderItem.style.textAlign = 'center'
+      leaderItem.textContent = `. ${game.nickname} - ${game.highscore}`
       leaderList.appendChild(leaderItem)
     }
     leaderBoard.style.display = 'block'
 }
 
 function handleLeaders () {
-    gamesGetRequest().then(res => res.json())
-      .then(games => displayLeaders(games))
+    leaderGetRequest()
+      .then(games => 
+        displayLeaders(games)
+      )
   }

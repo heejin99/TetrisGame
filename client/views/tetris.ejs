@@ -11,6 +11,7 @@
   </head>
   <body>
       <div class="wrap">
+        <button id="infobt" class="infobt" onclick="displayGameStart()">?</button>
         <div class="grid-column menu">
           <h1><a href="/api/tetris">Tetris</a></h1>
             <% if(!loggedin) { %>
@@ -41,53 +42,18 @@
               <h2 id="nickname"><%=nickname%></h2>
               <button id="logout-button"><a href="/api/logout">Logout</a></button><br>
             <% } %>
-          <button id="show-leaderboard">Leader Board</button><br>
-          
-        </div>
-        <div class="main-cnt" >
-          <canvas id="main-board" class="main-board"></canvas>
-        </div>
-        <div class="sub-cnt">
-          <canvas id="sub-board" class="sub-board"></canvas>
-          <p>레벨: <span id="level"></span><span id="levelUp" class="levelUp"></span></p>
-          <p>점수: <span id="score"></span><span id="addScore" class="addScore"></span></p>
-          <p>라인: <span id="lines"></span><span id="removeLines" class="removeLines"></span></p>
-          <p>최고 점수: <span id="highScore"></span></p>
-          <p><button id="start" onclick="start()" class="start">게임 시작</button></p>
-          <p><button id="pause" onclick="pause()" class="pause">일시 정지</button></p>
-          <p><button id="quit" onclick="quit()" class="quit">게임 종료</button></p>
-          <p><span id="end-game" class="end-game"></span></p>
-          <div id="bottom-cnt" class="bottom-cnt">
-            <div id="keypad" class="keypad">
-              <div class="arrowKeyCnt">
-                <div class="arrowKeyUp">
-                  <button id="upKey" class="rotation" onclick="pressKey(38)">블럭 돌리기</button>
-                  <button id="downKey" class="down" onclick="pressKey(40)">내리기</button>
-                </div>
-                <br>
-                <div class="arrowKeyDown">
-                  <button id="left" class="arrow" onclick="pressKey(37)">←</button>
-                  <button id="right" class="arrow" onclick="pressKey(39)">→</button>
-                </div>
-              </div>
-              <br>
-              <button id="space" class="space" onclick="pressKey(32)">드랍</button>
-            </div>
+          <button id="game-start"><a href="/api/tetris">게임 시작</a></button>
+          <div id="info" class="menu-modal">
           </div>
         </div>
-        <p>
-          <div id="leaderboard" class="leaderboard">
-          </div>
-        </p>
-      </div>
+        
     <script>
       let loggedin = '<%=loggedin%>'
+      const loginButton = document.querySelector('#login-button')
+      const signupButton = document.querySelector('#signup-button')
+      const logoutButton = document.querySelector('#logout-button')
     </script>
     <script src="/client/js/api.js"></script>
     <script src="/client/js/display.js"></script>
-    <script src="/client/js/rules.js"></script>
-    <script src="/client/js/board.js"></script>
-    <script src="/client/js/piece.js"></script>
-    <script src="/client/js/main.js"></script>
   </body>
 </html>

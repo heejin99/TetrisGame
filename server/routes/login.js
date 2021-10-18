@@ -8,7 +8,7 @@ const saltRounds = 10
 
 router.get('/login', (req, res)=>{
     console.log('login '+req.session.nickname+req.session)
-        res.render('tetris.ejs', {
+        res.render('main.ejs', {
             user:req.session, 
             loggedin: req.session.loggedin, 
             nickname: req.session.nickname
@@ -38,7 +38,7 @@ router.post('/login', (req, res) => {
                     req.session.nickname = row[0].nickname
                     req.session.user = row[0].user_id
                     console.log(req.session.loggedin+req.session.nickname)
-                    res.render('tetris', {
+                    res.render('main', {
                         nickname: req.session.nickname,
                         id: row[0].id,
                         user: row[0].user_id,

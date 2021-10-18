@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 router.get('/tetris', (req, res) => {
         console.log(req.session.loggedin+"tetris"+req.session.nickname)
         if(req.session.loggedin) {
-            res.render('tetris', {
+            res.render('main', {
                 loggedin: req.session.loggedin,
                 nickname: req.session.nickname,
                 user: req.session,
@@ -50,7 +50,13 @@ router.get('/tetris', (req, res) => {
             })
         } 
 })
-
+router.get('/main', (req, res) => {
+    res.render('tetris', {
+        loggedin: req.session.loggedin,
+        nickname: req.session.nickname,
+        user: req.session,
+    })
+})
 router.get('/leader', (req, res) => {
     db.query('SELECT * FROM tetris LEFT JOIN user ON tetris.userId = user.user_id ORDER BY tetris.highscore desc',(err, row) => {
         res.json({
@@ -62,7 +68,7 @@ router.get('/leader', (req, res) => {
 router.post('/', (req, res) => {
     // db.query
     db.query('SELECT * FROM tetris WHERE userId=?', req.session.user, (err, row) => {
-        if (row.length == 0) {
+        if (row.length === 0) {
             db.query('INSERT INTO tetris(`userId`, `highscore`) VALUES (?,?)', [req.session.user, req.query.score], (errr, rows) =>{
                 if(err) return res.json({success: false, errr})
                 console.log('post rows',rows,row)

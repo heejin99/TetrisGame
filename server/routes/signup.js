@@ -30,9 +30,4 @@ router.post('/', (req, res) => {
         
 })
 
-    
-    // res.redirect('/api/login') // 임시 확인용
-
-
-
 module.exports = router

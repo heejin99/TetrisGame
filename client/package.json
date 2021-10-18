@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.22.0",
-    "module": "^1.2.5"
+    "module": "^1.2.5",
+    "navigator": "^1.0.1"
   }
 }

@@ -1,6 +1,4 @@
-
-const port = process.env.PORT||3001
-const BASE_URL = 'http://tetris-mobile.herokuapp.com:'+port+'/'
+const BASE_URL = 'http://tetris-mobile.herokuapp.com/'
 function gamePostRequest(body) {
     return axios({
         method: 'post',

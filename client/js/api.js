@@ -1,4 +1,4 @@
-const BASE_URL = 'http://tetris-mobile.herokuapp.com/'
+const BASE_URL = 'https://tetris-mobile.herokuapp.com/'
 function gamePostRequest(body) {
     return axios({
         method: 'post',

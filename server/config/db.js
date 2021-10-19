@@ -11,4 +11,12 @@ const db = mysql.createConnection({
 })
 
 db.connect()
+
+db.on('error', err => {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        return db.connect()
+    } else {
+        throw err
+    }
+})
 module.exports = db

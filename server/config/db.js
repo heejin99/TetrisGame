@@ -15,12 +15,12 @@ const db = mysql.createPool({
 
 function handleDisconnect() {
     var intervalId
-    db.connect(function (err) {
-        if (err) {
-            console.log('db error: ',err)
-            setTimeout(handleDisconnect, 2000)
-        }
-    })
+    // db.connect(function (err) {
+    //     if (err) {
+    //         console.log('db error: ',err)
+    //         setTimeout(handleDisconnect, 2000)
+    //     }
+    // })
     
     const preventClosingConnection= ()=>{ 
         db.query('SELECT 1').catch(e=> console.error(e)); 

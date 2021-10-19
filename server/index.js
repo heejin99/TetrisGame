@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, '../client/views'))
+app.set('views', path.join(__dirname, './client/views'))
 
-app.use(express.static(path.join(__dirname, '../')))
+app.use(express.static(path.join(__dirname, './')))
 app.use(cookieParser())
 app.use(session({
     key: 'tetris',

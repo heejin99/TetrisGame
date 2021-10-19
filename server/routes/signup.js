@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
                     // 아이디와 비밀번호 db에 추가
                     db.query('INSERT INTO user(`id`,`password`,`name`, `email`) VALUES (?,?,?,?)', param, (err, row) => {
                         if(err) return res.json({success: false, err})
-                        res.redirect('/api/login')
+                        res.redirect('/api')
                     })
                 } else {
                     res.send('<script>alert("아이디가 존재합니다.");location.href="/api/signup"</script>')

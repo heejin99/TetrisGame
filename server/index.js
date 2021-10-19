@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, './client/views'))
+console.log('dir', __dirname)
+app.set('views', path.join(__dirname, 'client/views'))
 
 app.use(express.static(path.join(__dirname, './')))
 app.use(cookieParser())

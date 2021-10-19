@@ -16,7 +16,7 @@ router.post('/', (req, res) => {
         bcrypt.hash(param[1], saltRounds, (error, hash) => {
             param[1] = hash
             db.query('SELECT * FROM user WHERE id=? OR email=?', [req.body.id, req.body.email], (err, data) => {
-                if (data.length == 0) {
+                if (data.length === 0) {
                     // 아이디와 비밀번호 db에 추가
                     db.query('INSERT INTO user(`id`,`password`,`name`, `email`) VALUES (?,?,?,?)', param, (err, row) => {
                         if(err) return res.json({success: false, err})
